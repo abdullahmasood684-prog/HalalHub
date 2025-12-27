@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HalalHub | Trusted Halal Marketplace</title>
+    <meta name="description" content="Buy & sell certified halal products, Islamic goods, modest fashion, halal food, and religious items. Verified sellers, secure payments, worldwide delivery.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== VARIABLES & RESET ===== */
+        :root {
+            --primary: #0a5c36; /* Islamic green */
+            --primary-dark: #074428;
+            --primary-light: #e9f7ef;
+            --secondary: #d4af37; /* Gold accent */
+            --dark: #1a1a1a;
+            --light: #ffffff;
+            --gray: #6c757d;
+            --gray-light: #f8f9fa;
+            --success: #28a745;
+            --border-radius: 10px;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3.2rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-light {
+            background-color: var(--gray-light);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        /* ===== HEADER & NAVBAR ===== */
+        header {
+            background: linear-gradient(rgba(10, 92, 54, 0.95), rgba(10, 92, 54, 0.98)), url('https://images.unsplash.com/photo-1566371483649-47d656e5c2a4?auto=format&fit=crop&w=1600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .navbar {
+            background-color: var(--light);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* ===== FEATURED CATEGORIES ===== */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 4px solid var(--primary);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        /* ===== FEATURES ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        /* ===== TRUST BADGES ===== */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 3rem;
+        }
+
+        .badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .badge-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--dark);
+            color: #ddd;
+            padding: 70px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .footer-heading {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #444;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 2.7rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                padding: 30px 0;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-mosque"></i>
+                <span>HalalHub</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#trust">Trust</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="btn btn-primary" style="padding: 10px 20px;">Sign In</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header id="home">
+        <div class="container hero-content">
+            <h1>Your Trusted Halal Marketplace</h1>
+            <p class="hero-subtitle">Buy & sell certified halal products, Islamic goods, modest fashion, halal food, and religious items with confidence. Verified sellers, secure payments, worldwide delivery.</p>
+            <div class="cta-buttons">
+                <a href="#categories" class="btn btn-primary">Start Shopping</a>
+                <a href="#how-it-works" class="btn btn-secondary">Become a Seller</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Categories -->
+    <section id="categories" class="section-light">
+        <div class="container">
+            <h2>Featured Categories</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Halal Food</h3>
+                    <p>Certified meat, groceries, snacks, and ready-to-eat meals</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Modest Fashion</h3>
+                    <p>Hijabs, abayas, jilbabs, modest dresses and accessories</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-book-quran"></i>
+                    </div>
+                    <h3>Islamic Books</h3>
+                    <p>Qurans, Islamic literature, educational materials, children's books</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-pray"></i>
+                    </div>
+                    <h3>Prayer Items</h3>
+                    <p>Prayer mats, miswak, tasbih, attar, hijama cups, and more</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Islamic Art</h3>
+                    <p>Calligraphy, wall art, home decor, and handmade crafts</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h3>Family & Kids</h3>
+                    <p>Islamic toys, educational games, baby products, and gifts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works">
+        <div class="container">
+            <h2>How HalalHub Works</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Browse or List</h3>
+                    <p>Explore thousands of halal-certified products or create your seller account to list items</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Verify & Connect</h3>
+                    <p>Our team verifies halal certifications. Buyers connect with trusted sellers</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Secure Transaction</h3>
+                    <p>Use our protected payment system with escrow options for safety</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Halal Delivery</h3>
+                    <p>Products are shipped with halal-compliant logistics and tracking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section id="features" class="section-light">
+        <div class="container">
+            <h2>Why Choose HalalHub</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Halal Verified</h3>
+                    <p>Every product undergoes halal certification verification by our expert team</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Payments</h3>
+                    <p>Encrypted transactions with buyer protection and secure escrow options</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Delivery</h3>
+                    <p>Worldwide shipping with halal-compliant logistics and real-time tracking</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Verified Sellers</h3>
+                    <p>All sellers are authenticated with business verification and customer reviews</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Dedicated Muslim support team available via chat, email, and phone</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Zakat-Compliant</h3>
+                    <p>Platform designed with Islamic finance principles and zakat calculation tools</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Security -->
+    <section id="trust">
+        <div class="container">
+            <h2>Trust & Security</h2>
+            <div class="trust-badges">
+                <div class="badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-mosque"></i>
+                    </div>
+                    <h4>Sharia-Compliant</h4>
+                    <p>Verified by Islamic scholars</p>
+                </div>
+                
+                <div class="badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h4>SSL Encrypted</h4>
+                    <p>Secure data protection</p>
+                </div>
+                
+                <div class="badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h4>Halal Certified</h4>
+                    <p>Product verification</p>
+                </div>
+                
+                <div class="badge">
+                    <div class="badge-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h4>Safe Delivery</h4>
+                    <p>Tracked shipments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <a href="#" class="footer-logo">
+                        <i class="fas fa-mosque"></i> HalalHub
+                    </a>
+                    <p>Your trusted marketplace for halal products and Islamic goods. Connecting the global Muslim community with authenticity and trust.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#trust">Trust & Security</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-heading">For Sellers</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sell on HalalHub</a></li>
+                        <li><a href="#">Seller Dashboard</a></li>
+                        <li><a href="#">Halal Certification</a></li>
+                        <li><a href="#">Shipping Guide</a></li>
+                        <li><a href="#">Seller Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="footer-heading">Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> support@halalhub.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Global Marketplace</li>
+                        <li><a href="#">FAQ & Help Center</a></li>
+                        <li><a href="#">Live Chat Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> HalalHub. All rights reserved. | Buy & sell with barakah.</p>
+                <p style="margin-top: 10px; font-size: 0.8rem;">Halal-certified marketplace | Secure Islamic e-commerce platform</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add shadow to navbar on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if(window.scrollY > 50) {
+                navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
